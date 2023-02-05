@@ -5,6 +5,10 @@ import { Resident } from '../resident';
 export function Program({ programs }: any) {
     const [hobbyFilter, setHobbyFilter] = useState<string>('');
 
+    function sortDate(a: { start: string }, b: { start: string }): number {
+        return new Date(b.start).getTime() - new Date(a.start).getTime();
+    }
+
     const renderProrgramCells = ({  name, location, start, end, hobbies, attendance } : any) => (
         <>
             <td>{name}</td>
@@ -33,7 +37,7 @@ export function Program({ programs }: any) {
     const filteredPrograms = hobbyFilter ? programs.filter((program: any) => program.hobbies.includes(hobbyFilter)) : programs;
 
     return (
-    <>  {hobbyFilter ? <button onClick={() => setHobbyFilter('')} >Clear Filter</button> : null}
+    <>  {hobbyFilter ? <button onClick={(event: React.MouseEvent<HTMLButtonElement>) => setHobbyFilter('')} >Clear Filter</button> : null}
         <table>
         <thead>
             <tr>
@@ -47,7 +51,7 @@ export function Program({ programs }: any) {
         </thead>
 
         <tbody>
-            {filteredPrograms.map((program: any) => (
+            {filteredPrograms.sort(sortDate).map((program: any) => (
                 <tr key={program.id}>{renderProrgramCells(program)}</tr>
             ))}
         </tbody>
