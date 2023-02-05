@@ -4,10 +4,10 @@ interface ResidentProps {
   data: ResidentModel,
 }
 
-export function Resident({helllo}: any) {
+export function Resident({residentId}: any) {
   return (
     <>
-        <span>{helllo} </span>
+        <span>{residentId}</span>
     </>
   );
 }

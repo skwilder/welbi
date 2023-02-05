@@ -12,7 +12,7 @@ export function Program({ programs }: any) {
             <td>{
                 attendance
                     .filter((attendee: any) => (attendee.status !== "Declined" ))
-                    .map((attendee: any) => (<Resident key={attendee.residentId} helllo={attendee.residentId}/>))
+                    .map((attendee: any) => (<Resident key={attendee.residentId} residentId={attendee.residentId}/>))
             }</td>
         </>
     );

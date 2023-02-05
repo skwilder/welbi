@@ -16,19 +16,21 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin: 1rem 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
 }
 
 thead tr {
-  background-color: #333;
+  background-color: #0080ff;
   color: #fff;
 }
 
 tbody tr:nth-child(odd) {
-  background-color: rgba(138,201,213,.3);
+  background-color: #f2f9ff;
 }
 
 td, th {
   padding: 0.5rem;
-  border: 1px solid #333;
+  border: 1px solid #0080ff;
   text-align: left;
 }
