@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import { Program } from './modules/program';
+import { ResidentProvider } from './modules/resident/provider';
 
 function App() {
-  const [residents, setResidents] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [token, setToken] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {    
@@ -15,17 +16,7 @@ function App() {
           email: 'shawnkwilder@gmail.com'
         });
 
-        // TODO: Figure out why this data.data
-        setToken(tokenResponse.data.data.token);
-        
-        // TODO : Figure out why I cannot use ${token} here
-        const residentsResponse = await axios.get('https://welbi.org/api/residents', {
-          headers: {
-            Authorization: `Bearer ${tokenResponse.data.data.token}`,
-          }
-        });
-
-        setResidents(residentsResponse.data);
+        setToken(() => tokenResponse.data.data.token);
         
         const programsResponse = await axios.get('https://welbi.org/api/programs', {
           headers: {
@@ -33,8 +24,9 @@ function App() {
           }
         });
 
-        setPrograms(programsResponse.data);
+        setPrograms(() => programsResponse.data);
 
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -43,15 +35,16 @@ function App() {
     fetchData();
   }, []);
 
-  console.log(residents);
-  console.log(programs);
-
-  const newPrograms = programs.filter((tes: any) => tes.hobbies.length > 0)
+  if (isLoading) {
+    return null;
+  }
 
   return (
-    <div className="App">
-      <Program programs={newPrograms}></Program>
-    </div>
+    <ResidentProvider token={token}>
+      <div className="App">
+        <Program programs={programs}></Program>
+      </div>
+    </ResidentProvider>
   );
 }
 
