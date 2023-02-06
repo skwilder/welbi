@@ -14,8 +14,7 @@ export function ProgramManager({ managedProgram, setManagedProgram }: any) {
 
     return (
         <div>
-            <h1>Manager Program</h1>
-            <h2>{managedProgram.name}</h2>
+            <h1>Manage Program - {managedProgram.name}</h1>
 
             <ResidentSearch handleSelectProp={setSelectedResident}></ResidentSearch>            
 
