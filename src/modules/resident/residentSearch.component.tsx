@@ -3,8 +3,7 @@ import { ResidentModel } from "./model";
 import { useResidents } from "./provider";
 
 export const ResidentSearch = ({ handleSelectProp } : { handleSelectProp : any }) => {
-    const { residents } = useResidents();
-    
+    const { residents } = useResidents();    
 
     if (residents === undefined) {
         throw new Error("Residents must be not undefined to use Resident Search")

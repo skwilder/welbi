@@ -28,7 +28,10 @@ export function Program({ programs }: any) {
 
     const renderProrgramCells = ({ id, name, location, start, end, hobbies, attendance } : any) => (
         <>
-            <td className='program-manager' onClick={() => setManagedProgram({id, name})}>{name}</td>
+            <td className='program-manager' onClick={() => {
+                setManagedProgram({id, name});
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
+            }}>{name}</td>
             <td>{location}</td>
             <td>{dayjs(start).format('DD/MM/YYYY')}</td>
             <td>{dayjs(end).format('DD/MM/YYYY')}</td>

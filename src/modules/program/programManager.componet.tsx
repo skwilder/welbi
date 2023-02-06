@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-
+import { useState } from 'react';
+import { usePrograms } from '../../functions/usePrograms';
 import { ResidentModel } from "../resident";
 import { useResidents } from "../resident/provider";
 import { ResidentSearch } from '../resident';
@@ -7,6 +7,7 @@ import { ResidentSearch } from '../resident';
 export function ProgramManager({ managedProgram, setManagedProgram }: any) {
     const { residents, subscribe } = useResidents();
     const [selectedResident, setSelectedResident] = useState<ResidentModel | null>(null);
+    const { refreshData } = usePrograms(null);
 
     if (subscribe === undefined || residents === undefined) {
         throw new Error("subscribe needs to be defined")
@@ -27,6 +28,8 @@ export function ProgramManager({ managedProgram, setManagedProgram }: any) {
                     programId: managedProgram.id,
                     residentId: selectedResident.id,
                 })
+
+                refreshData();
             }}>
                 Add User to Attendance
             </button>

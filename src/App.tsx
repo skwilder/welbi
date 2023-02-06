@@ -3,11 +3,10 @@ import axios from 'axios';
 import './App.css';
 import { Program } from './modules/program';
 import { ResidentProvider } from './modules/resident/provider';
+import { usePrograms } from './functions/usePrograms';
 
 function App() {
-  const [programs, setPrograms] = useState([]);
   const [token, setToken] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,15 +17,6 @@ function App() {
 
         setToken(() => tokenResponse.data.data.token);
 
-        const programsResponse = await axios.get('https://welbi.org/api/programs', {
-          headers: {
-            Authorization: `Bearer ${tokenResponse.data.data.token}`,
-          }
-        });
-
-        setPrograms(() => programsResponse.data);
-
-        setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -34,6 +24,10 @@ function App() {
 
     fetchData();
   }, []);
+
+  const { programs, refreshData, isLoading } = usePrograms(token);
+
+  refreshData();
 
   if (isLoading) {
     return null;

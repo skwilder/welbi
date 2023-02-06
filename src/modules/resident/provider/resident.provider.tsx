@@ -23,7 +23,7 @@ export const ResidentProvider = ({ token, children }: any) => {
                 }
             });
         } catch (error) {
-                console.error(error);
+            console.error(error);
         }
     }
 
@@ -37,7 +37,6 @@ export const ResidentProvider = ({ token, children }: any) => {
                 });
 
                 setResidents(residentsResponse.data);
-
             } catch (error) {
                 console.error(error);
             }
